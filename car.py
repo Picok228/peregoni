@@ -23,10 +23,10 @@ class Player:
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_d]:
-            self.hitbox.x += self.speed*3
+            self.hitbox.x += self.speed*4
             self.dir = "right"
         if keys[pygame.K_a]:
-            self.hitbox.x -= self.speed*3
+            self.hitbox.x -= self.speed*4
             self.dir = "left"
         if keys[pygame.K_w]:
             self.hitbox.y -= self.speed*6

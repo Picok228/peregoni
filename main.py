@@ -21,6 +21,8 @@ def start_game():
         car1.append(CAR(randint(107, 107), randint(-200, -200), 58, 128, "optimys_prime/автомобіль_бот_2.png", 4))
         car1.append(CAR(randint(185, 185), randint(-600, -200), 58, 128, "optimys_prime/автомобіль_бот.png", 4))
         car1.append(CAR(randint(419, 419), randint(-400, -200), 58, 128, "optimys_prime/автомобіль_бот_2.png", 4))
+        car1.append(CAR(randint(270, 270), randint(-1100, -200), 58, 128, "optimys_prime/автомобіль_бот3.png", 4))
+        car1.append(CAR(randint(339, 339), randint(-900, -200), 58, 128, "optimys_prime/втомобіль_бот4.png", 4))
 
 
     while True:
