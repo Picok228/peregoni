@@ -1,3 +1,4 @@
+import sys
 from random import randint
 
 import pygame
@@ -7,7 +8,7 @@ from car_bot import CAR
 def endgame(window):
     fps = pygame.time.Clock()
     font = pygame.font.Font(None, 36)  # Choose a font and size for the text
-    button_rect = pygame.Rect(100, 100, 200, 50)  # Define the button's rectangle
+    button_rect = pygame.Rect(105, 360, 290, 50)  # Define the button's rectangle
 
     while True:
         for event in pygame.event.get():
@@ -18,12 +19,16 @@ def endgame(window):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if button_rect.collidepoint(event.pos):
                     print("Button clicked!")  # You can replace this with any action you want
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    print(pygame.mouse.get_pos())
 
-        window.fill((0, 0, 0))  # Fill the window with white color
+        window.fill((250, 251, 250))  # Fill the window with white color
         pygame.draw.rect(window, (0, 0, 255), button_rect)  # Draw the button
-        pygame.draw.rect(window, (0, 0, 0), button_rect, 2)  # Draw the button border
-        text_surface = font.render("Програв", True, (255, 255, 255))  # Render the text
-        window.blit(text_surface, (100, 255))  # Position the text
+        pygame.draw.rect(window, (0, 0, 255), button_rect, 10)  # Draw the button border
+        text_surface = font.render("Програв", True, (0, 0, 0))  # Render the text
+        window.blit(text_surface, (200, 255))  # Position the text
+        text_surface = font.render("Вийти в головне меню", True, (0, 0, 0))
+        window.blit(text_surface, (110, 373))
 
         pygame.display.flip()
         fps.tick(30)
@@ -71,4 +76,3 @@ def start_game():
         
         fps.tick(30)
 
-start_game()
