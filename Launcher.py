@@ -16,30 +16,48 @@ window.show()
 settings = {}
 def read_data():
     global settings
-
-    with open("settings.json", "r", encoding="utf-8") as file:
-        settings = json.load(file)
+    try:
+        with open("settings.json", "r", encoding="utf-8") as file:
+            settings = json.load(file)
+    except:
+        settings ={
+                "skin": "optimys_prime/img.png",
+                "money": 100
+            }
 def write_data():
     global settings
     with open("settings.json", "w", encoding="utf-8") as file:
-        json.dump(settings, file, indent=4)
+        json.dump(settings, file, indent=4, ensure_ascii=False)
 
-Golovna_linia = QHBoxLayout()
-grati = QPushButton("Грати")
-Golovna_linia.addWidget(grati)
-
-main_line = QVBoxLayout()
-
-knopka_start = QPushButton("Старт")
-
-main_line.addWidget(knopka_start)
-
+def buy_skin_1():
+    read_data()
+    if settings["money"] >=7:
+        settings["money"] -= 7
+        settings["skin"] = "optimys_prime/автомобіль2.png"
+        write_data()
+    else:
+        print("Грочей не хватає")
 
 
-knopka_start.clicked.connect(start_game)
-def change_data():
-    settings["skin"] = line_edit.text()
-    write_data()
+
+
+
+knopka1 = QPushButton("Грати")
+leave = QPushButton("Вийти з гри")
+buy_skin_1_btn = QPushButton("Купити скін")
+
+h1 = QVBoxLayout()
+h1.addWidget(knopka1)
+h1.addWidget(leave)
+h1.addWidget(buy_skin_1_btn)
+window.setLayout(h1)
+knopka1.clicked.connect(start_game)
+leave.clicked.connect(quit)
+buy_skin_1_btn.clicked.connect(buy_skin_1)
+
+
+
+
 
 window.show()
 

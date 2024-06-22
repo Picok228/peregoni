@@ -1,3 +1,4 @@
+import json
 import sys
 from random import randint
 
@@ -19,6 +20,7 @@ def endgame(window):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if button_rect.collidepoint(event.pos):
                     print("Button clicked!")  # You can replace this with any action you want
+                    return
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     print(pygame.mouse.get_pos())
 
@@ -38,9 +40,21 @@ def start_game():
     pygame.font.init()
     window = pygame.display.set_mode((500, 650))
     fps = pygame.time.Clock()
+    settings = {}
 
+    def read_data():
+        nonlocal settings
+        try:
+            with open("settings.json", "r", encoding="utf-8") as file:
+                settings = json.load(file)
+        except:
+            settings = {
+                "skin": "optimys_prime/img.png",
+                "money": 82345
+            }
+    read_data()
 
-    roket = Player(270, 290, 58, 128, "optimys_prime/автомобіль.png", 1)
+    roket = Player(270, 290, 58, 128, settings["skin"], 1)
     bacground = pygame.transform.scale(
         pygame.image.load("optimys_prime/дорога.png"), (500, 650)
     )
@@ -63,7 +77,9 @@ def start_game():
                 print(pygame.mouse.get_pos())
             for car in car1:
                if roket.hitbox.colliderect(car.hitbox):
-                endgame(window)
+                    endgame(window)
+                    pygame.quit()
+                    return
         window.blit(bacground, (5, 5))
         for car in car1:
             car.draw(window)
