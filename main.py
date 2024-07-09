@@ -1,5 +1,6 @@
 import json
 import sys
+import time
 from random import randint
 
 import pygame
@@ -37,21 +38,30 @@ def endgame(window):
     
 
 def start_game():
+    global settings
     pygame.font.init()
     window = pygame.display.set_mode((500, 650))
+    pygame.display.set_caption('Гра')
     fps = pygame.time.Clock()
     settings = {}
+    start_time = time.time()
 
     def read_data():
-        nonlocal settings
+        global settings
         try:
             with open("settings.json", "r", encoding="utf-8") as file:
                 settings = json.load(file)
         except:
             settings = {
                 "skin": "optimys_prime/img.png",
-                "money": 82345
+                "money": 100
             }
+
+    def write_data():
+        global settings
+        with open("settings.json", "w", encoding="utf-8") as file:
+            json.dump(settings, file, indent=4, ensure_ascii=False)
+
     read_data()
 
     roket = Player(270, 290, 58, 128, settings["skin"], 1)
@@ -62,10 +72,10 @@ def start_game():
     car1 = []
     for i in range(1):
         car1.append(CAR(randint(36, 36), randint(-800, -200), 58, 128, "optimys_prime/автомобіль_бот.png", 4))
-        car1.append(CAR(randint(107, 107), randint(-200, -200), 58, 128, "optimys_prime/автомобіль_бот_2.png", 4))
-        car1.append(CAR(randint(185, 185), randint(-600, -200), 58, 128, "optimys_prime/автомобіль_бот.png", 4))
-        car1.append(CAR(randint(419, 419), randint(-400, -200), 58, 128, "optimys_prime/автомобіль_бот_2.png", 4))
-        car1.append(CAR(randint(270, 270), randint(-1100, -200), 58, 128, "optimys_prime/автомобіль_бот3.png", 4))
+        car1.append(CAR(randint(107, 107), randint(-600, -200), 58, 128, "optimys_prime/автомобіль_бот_2.png", 4))
+        car1.append(CAR(randint(185, 185), randint(-1100, -600), 58, 128, "optimys_prime/автомобіль_бот.png", 4))
+        car1.append(CAR(randint(419, 419), randint(-900, -400), 58, 128, "optimys_prime/автомобіль_бот_2.png", 4))
+        car1.append(CAR(randint(270, 270), randint(-1100, -800), 58, 128, "optimys_prime/автомобіль_бот3.png", 4))
         car1.append(CAR(randint(339, 339), randint(-900, -200), 58, 128, "optimys_prime/втомобіль_бот4.png", 4))
 
 
@@ -84,6 +94,12 @@ def start_game():
         for car in car1:
             car.draw(window)
             car.move()
+        if time.time()- start_time > 3:
+            read_data()
+            settings["money"] += 1
+
+            write_data()
+            start_time = time.time()
        
         roket.move()
         roket.draw(window)

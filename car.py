@@ -16,7 +16,7 @@ class Player:
 
 
     def draw(self,window):
-        pygame.draw.rect(window,(225,0,0),self.hitbox)
+        #pygame.draw.rect(window,(225,0,0),self.hitbox)
         window.blit(self.photo,(self.hitbox.x, self.hitbox.y))
 
     def move(self):

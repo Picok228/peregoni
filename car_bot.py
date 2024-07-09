@@ -11,7 +11,7 @@ class CAR:
 
 
     def draw(self,window):
-        pygame.draw.rect(window,(210,0,0),self.hitbox)
+        #pygame.draw.rect(window,(210,0,0),self.hitbox)
         window.blit(self.photo,(self.hitbox.x, self.hitbox.y))
 
     def move(self):
